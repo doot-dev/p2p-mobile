@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "343691040198",
+    "firebase_url": "https://studio-5552739494-fac85-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "studio-5552739494-fac85",
+    "storage_bucket": "studio-5552739494-fac85.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343691040198:android:027eae2f13210c7a38cec7",
+        "android_client_info": {
+          "package_name": "in.pitchtopicture.ptp_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfSBEhhcUpJpGiHeljhPSQ643KSc3ITNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
