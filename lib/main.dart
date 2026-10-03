@@ -9,8 +9,8 @@ import 'src/core/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Firebase project studio-5552739494-fac85: push (FCM) and the Google sign-in bridge on Android/iOS.
-  // ponytail: web skips Firebase until web push / Google sign-in on web are added.
+  // Firebase project studio-5552739494-fac85 is used only for push (FCM) on Android/iOS.
+  // Accounts, data and files are all on P2P-backend. ponytail: no web push yet.
   if (!kIsWeb) await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: App()));
 }

@@ -10,7 +10,6 @@ import '../features/info/info_screens.dart';
 import '../features/people/profile_screens.dart';
 import '../features/projects/hiring_editor_screen.dart';
 import '../features/projects/new_project_screen.dart';
-import '../features/projects/pitch_guide_screen.dart';
 import '../features/projects/project_screen.dart';
 import '../features/shell.dart';
 import 'push.dart';
@@ -31,7 +30,7 @@ const _gates = {Routes.splash, ..._authPages, Routes.verifyEmail, Routes.onboard
 /// Pages anyone can browse without an account, like the website (projects, creators, profiles, info).
 bool isBrowsable(String location) =>
     const {Routes.home, '/projects', '/creators', '/contact', '/show'}.contains(location) ||
-    (location.startsWith('/project/') && location != '/project/new' && !location.endsWith('/hiring') && !location.endsWith('/pitch-guide')) ||
+    (location.startsWith('/project/') && location != '/project/new' && !location.endsWith('/hiring')) ||
     location.startsWith('/profile/') ||
     location.startsWith('/legal/');
 
@@ -78,7 +77,6 @@ final routerProvider = Provider<GoRouter>((ref) {
       _r('/project/new', (_) => const NewProjectScreen()),
       _r('/project/:id', (s) => ProjectScreen(s.pathParameters['id']!)),
       _r('/project/:id/hiring', (s) => HiringEditorScreen(s.pathParameters['id']!)),
-      _r('/project/:id/pitch-guide', (s) => PitchGuideScreen(s.pathParameters['id']!)),
       _r('/dashboard', (s) => DashboardScreen(tab: s.uri.queryParameters['tab'])),
       _r('/chat/:uid', (s) => ChatScreen(s.pathParameters['uid']!)),
       _r('/profile/:id', (s) => PublicProfileScreen(s.pathParameters['id']!)),

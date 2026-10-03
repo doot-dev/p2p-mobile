@@ -419,7 +419,7 @@ Future<void> _showChangePassword(BuildContext context, WidgetRef ref) {
 }
 
 /// Delete the whole P2P account (store requirement). Asks for the password, or for "DELETE" if the
-/// account only signs in with Google.
+/// account has no password (imported without one).
 Future<void> _showDeleteAccount(BuildContext context, WidgetRef ref) {
   final hasPassword = ref.read(sessionProvider).account?.hasPassword ?? true;
   final input = TextEditingController();

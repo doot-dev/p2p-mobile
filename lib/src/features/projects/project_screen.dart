@@ -135,7 +135,6 @@ class _Detail extends ConsumerWidget {
                   const SizedBox(height: S.xl),
                   const SectionLabel('Your project'),
                   _ToolTile(PhosphorIconsRegular.pencilSimple, 'Edit hiring', readOnly ? null : () => context.push('/project/$id/hiring')),
-                  _ToolTile(PhosphorIconsRegular.sparkle, 'Pitch guide', () => context.push('/project/$id/pitch-guide')),
                   _ToolTile(PhosphorIconsRegular.tray, 'Applications', () => context.push('/dashboard?tab=incoming')),
                   if (scriptUrl.isNotEmpty) _ToolTile(PhosphorIconsRegular.filePdf, 'View script', () => openExternal(scriptUrl)),
                 ],

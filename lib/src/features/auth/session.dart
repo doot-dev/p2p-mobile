@@ -8,7 +8,6 @@ import '../../core/format.dart';
 import '../../core/local_db.dart';
 import '../../core/push.dart';
 import '../../core/realtime.dart';
-import 'google_sign_in.dart';
 
 /// The shared P2P account (one login across all P2P apps), from /api/auth.
 class Account {
@@ -27,7 +26,7 @@ class Account {
   final String name;
   final bool emailVerified;
 
-  /// False for accounts that only sign in with Google.
+  /// False for accounts imported without a password (they set one with "Forgot password").
   final bool hasPassword;
 }
 
@@ -111,15 +110,6 @@ class SessionController extends Notifier<Session> {
   Future<void> register({required String name, required String email, required String password}) =>
       _startSession('/api/auth/register', {'name': name.trim(), 'email': email.trim().toLowerCase(), 'password': password});
 
-  /// Google via Firebase Auth in the app; the backend swaps the Firebase ID token for a P2P session.
-  /// Returns false if the person closed the Google sheet.
-  Future<bool> signInWithGoogle() async {
-    final idToken = await googleIdToken();
-    if (idToken == null) return false;
-    await _startSession('/api/auth/firebase', {'idToken': idToken});
-    return true;
-  }
-
   Future<void> requestVerificationCode() => _api.post('/api/auth/verify-email/request');
 
   Future<void> confirmEmail(String code) async {
@@ -138,7 +128,7 @@ class SessionController extends Notifier<Session> {
     await _tokens.save(res['accessToken'] as String, res['refreshToken'] as String);
   }
 
-  /// Delete the shared P2P account everywhere (password, or "DELETE" for Google-only accounts).
+  /// Delete the shared P2P account everywhere (password, or "DELETE" for accounts without one).
   Future<void> deleteAccount({String? password}) async {
     await _api.post('/api/auth/delete-account', password == null ? {'confirm': 'DELETE'} : {'password': password});
     await _endLocalSession();
@@ -164,7 +154,6 @@ class SessionController extends Notifier<Session> {
   Future<void> _endLocalSession() async {
     await ref.read(realtimeProvider).stop();
     await _tokens.clear();
-    await googleSignOut();
     await ref.read(localDbProvider).clearAll().catchError((_) {});
   }
 }

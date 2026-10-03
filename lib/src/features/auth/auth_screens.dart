@@ -10,7 +10,6 @@ import '../../core/theme.dart';
 import '../../ui/icons.dart';
 import '../../ui/kit.dart';
 import '../../ui/sheets.dart';
-import 'google_sign_in.dart';
 import 'session.dart';
 
 const _hero = 'https://images.unsplash.com/photo-1485846234645-a62644f84728?crop=entropy&cs=srgb&fm=jpg&w=1080&q=80';
@@ -63,38 +62,6 @@ class _FormPage extends StatelessWidget {
 }
 
 const _gap = SizedBox(height: S.md);
-
-class _GoogleButton extends ConsumerStatefulWidget {
-  const _GoogleButton();
-
-  @override
-  ConsumerState<_GoogleButton> createState() => _GoogleButtonState();
-}
-
-class _GoogleButtonState extends ConsumerState<_GoogleButton> with _Busy {
-  @override
-  Widget build(BuildContext context) {
-    if (!googleSignInSupported) return const SizedBox.shrink();
-    return Padding(
-      padding: const EdgeInsets.only(top: S.md),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Row(children: [
-          const Expanded(child: Divider()),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: S.md), child: Text('OR', style: T.caption.muted)),
-          const Expanded(child: Divider()),
-        ]),
-        const SizedBox(height: S.md),
-        AppButton(
-          'Continue with Google',
-          variant: BtnVariant.outline,
-          loading: busy,
-          icon: const Icon(PhosphorIconsRegular.globe, size: 18, color: C.onSurface),
-          onPressed: () => run(() => ref.read(sessionProvider.notifier).signInWithGoogle()),
-        ),
-      ]),
-    );
-  }
-}
 
 // ───── Splash ─────
 
@@ -206,7 +173,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with _Busy {
                         child: TextButton(onPressed: () => context.push('/forgot-password'), child: Text('Forgot password?', style: T.label.gold)),
                       ),
                       AppButton('Log In', loading: busy, onPressed: _submit),
-                      const _GoogleButton(),
                       const SizedBox(height: S.md),
                       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                         Text('New to Pitch To Picture? ', style: T.body.muted),
@@ -300,7 +266,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with _Busy {
             ),
           const SizedBox(height: S.lg),
           AppButton('Create Account', loading: busy, onPressed: _submit),
-          const _GoogleButton(),
           const SizedBox(height: S.md),
           Text('By signing up you agree to our Terms and Privacy Policy.', style: T.caption.muted, textAlign: TextAlign.center),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
