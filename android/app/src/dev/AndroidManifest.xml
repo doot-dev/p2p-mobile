@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Dev flavor only: allow plaintext HTTP so the app can reach the local
-     Next.js dev server at http://192.168.1.5:9002. The prod flavor stays
-     HTTPS-only (no cleartext). -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application android:usesCleartextTraffic="true" />
-</manifest>
