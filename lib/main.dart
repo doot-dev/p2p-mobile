@@ -1,24 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'main_common.dart';
+import 'src/core/config/flavor.dart';
 
-import 'firebase_options.dart';
-import 'src/app.dart';
-import 'src/core/config/app_status.dart';
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    AppStatus.firebaseReady = true;
-  } catch (e) {
-    // Firebase not configured yet — boot in preview mode so the UI/theme can
-    // still be developed. Run `flutterfire configure` to enable auth.
-    debugPrint('⚠️  Firebase not configured: $e');
-  }
-
-  runApp(const ProviderScope(child: PtpApp()));
-}
+/// Default entrypoint (IDE "run" / `flutter run --flavor prod`). Prefer the
+/// flavor-specific entrypoints:
+///   flutter run --flavor dev  -t lib/main_dev.dart
+///   flutter run --flavor prod -t lib/main_prod.dart
+void main() => bootstrap(AppFlavor.prod);

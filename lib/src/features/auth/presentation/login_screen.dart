@@ -1,14 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_status.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/router/app_router.dart';
 import '../../../shared/widgets/ptp_logo.dart';
+import '../application/auth_controller.dart';
 import '../data/auth_repository.dart';
 
-/// Email/password + Google sign-in. Wired to [AuthRepository]; full flows
-/// (signup, onboarding, password reset screens) come in later steps.
+/// Email/password + Google sign-in. Wired to [AuthController] (Firebase Auth +
+/// `/api/v1/me/ensure` profile bootstrap).
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -56,13 +59,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _loginWithEmail() async {
     if (!_formKey.currentState!.validate()) return;
-    final repo = ref.read(authRepositoryProvider);
-    await _run(() => repo.signInWithEmail(_email.text.trim(), _password.text));
+    final auth = ref.read(authControllerProvider);
+    await _run(() => auth.signInWithEmail(_email.text.trim(), _password.text));
   }
 
   Future<void> _loginWithGoogle() async {
-    final repo = ref.read(authRepositoryProvider);
-    await _run(repo.signInWithGoogle);
+    final auth = ref.read(authControllerProvider);
+    await _run(auth.signInWithGoogle);
   }
 
   @override
@@ -121,17 +124,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             )
                           : const Text('Log in'),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 4),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: _loading
+                            ? null
+                            : () => context.push(Routes.forgotPassword),
+                        child: const Text('Forgot password?'),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
                     OutlinedButton.icon(
                       onPressed: _loading ? null : _loginWithGoogle,
                       icon: const Icon(Icons.g_mobiledata, size: 28),
                       label: const Text('Continue with Google'),
                     ),
-                    const SizedBox(height: 24),
-                    Text(
-                      "Don't have an account? Sign up — coming soon.",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodySmall,
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't have an account?",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        TextButton(
+                          onPressed: _loading
+                              ? null
+                              : () => context.push(Routes.signup),
+                          child: const Text('Sign up'),
+                        ),
+                      ],
                     ),
                   ],
                 ),

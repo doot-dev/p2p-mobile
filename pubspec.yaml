@@ -2,7 +2,7 @@ name: ptp_app
 description: "Pitch To Picture - cinematic film pitch platform"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -43,9 +43,11 @@ dependencies:
   google_fonts: ^8.1.0
   intl: ^0.20.2
   cached_network_image: ^3.4.1
-  file_picker: ^3.0.4
+  # Native OS document picker (UIDocumentPicker / Storage Access Framework).
+  # Used for PDF script uploads only. Replaces file_picker (no SPM support).
+  file_selector: ^1.0.3
   url_launcher: ^6.3.2
-  flutter_markdown: ^0.7.7+1
+  flutter_markdown_plus: ^1.0.3
   shared_preferences: ^2.5.5
   flutter_secure_storage: ^10.3.1
   json_annotation: ^4.12.0
@@ -68,7 +70,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

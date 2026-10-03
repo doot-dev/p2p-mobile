@@ -8,6 +8,78 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:343691040198:android:d4d915a155455de738cec7",
+        "android_client_info": {
+          "package_name": "com.pitchtopicture.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfSBEhhcUpJpGiHeljhPSQ643KSc3ITNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.pitchtopicture.ptpApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343691040198:android:e17ed05f3575523138cec7",
+        "android_client_info": {
+          "package_name": "com.pitchtopicture.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfSBEhhcUpJpGiHeljhPSQ643KSc3ITNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.pitchtopicture.ptpApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:343691040198:android:027eae2f13210c7a38cec7",
         "android_client_info": {
           "package_name": "in.pitchtopicture.ptp_app"
@@ -30,6 +102,13 @@
             {
               "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.pitchtopicture.ptpApp"
+              }
             }
           ]
         }

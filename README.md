@@ -1,7 +1,7 @@
 # Pitch To Picture — Flutter App (`ptp_app`)
 
 Mobile (iOS + Android) client for the **Pitch To Picture** film-pitch platform.
-Mirrors the features of the existing Next.js web app in `../P2P`.
+Mirrors the features of the existing Next.js web app in `../P2P-website`.
 
 ## Architecture
 
@@ -52,7 +52,7 @@ lib/
    ```
    This regenerates `lib/firebase_options.dart` and adds the native config
    files (`google-services.json`, `GoogleService-Info.plist`). Use the same
-   Firebase project as the web app (see `../P2P/.env`).
+   Firebase project as the web app (see `../P2P-website/.env`).
 2. Point the app at your API:
    ```bash
    flutter run --dart-define=API_BASE_URL=https://pitchtopicture.in

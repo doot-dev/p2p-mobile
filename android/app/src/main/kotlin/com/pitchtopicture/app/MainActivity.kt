@@ -1,4 +1,4 @@
-package `in`.pitchtopicture.ptp_app
+package com.pitchtopicture.app
 
 import io.flutter.embedding.android.FlutterActivity
 

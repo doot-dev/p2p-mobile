@@ -4,6 +4,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../core/config/app_status.dart';
 
+/// Web (server) OAuth client id — `oauth_client` with `client_type: 3` in
+/// `android/app/google-services.json`. google_sign_in v7 needs this so the
+/// returned `idToken` has an audience Firebase accepts. It is project-level, so
+/// the same value is used for both the dev and prod flavors.
+const _googleServerClientId =
+    '343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com';
+
 /// Wraps Firebase Auth (email/password + Google). The DB profile is created
 /// separately via the REST API after first sign-in (mirrors the web app's
 /// `ensureUserProfile` server action).
@@ -40,16 +47,34 @@ class AuthRepository {
 
   Future<void> _ensureGoogleInitialized() async {
     if (_googleInitialized) return;
-    await GoogleSignIn.instance.initialize();
+    await GoogleSignIn.instance.initialize(
+      serverClientId: _googleServerClientId,
+    );
     _googleInitialized = true;
   }
 
   Future<UserCredential> signInWithGoogle() async {
     await _ensureGoogleInitialized();
-    final account = await GoogleSignIn.instance.authenticate();
-    final idToken = account.authentication.idToken;
-    final credential = GoogleAuthProvider.credential(idToken: idToken);
-    return _auth.signInWithCredential(credential);
+    try {
+      final account = await GoogleSignIn.instance.authenticate(
+        scopeHint: const ['email'],
+      );
+      final idToken = account.authentication.idToken;
+      if (idToken == null) {
+        throw FirebaseAuthException(
+          code: 'invalid-credential',
+          message: 'Google did not return an ID token.',
+        );
+      }
+      final credential = GoogleAuthProvider.credential(idToken: idToken);
+      return await _auth.signInWithCredential(credential);
+    } on GoogleSignInException catch (e) {
+      // Map a user cancel to the silent 'cancelled' code; rethrow the rest.
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        throw FirebaseAuthException(code: 'cancelled');
+      }
+      rethrow;
+    }
   }
 
   Future<void> sendPasswordReset(String email) =>

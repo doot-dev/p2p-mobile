@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "in.pitchtopicture.ptp_app"
+    namespace = "com.pitchtopicture.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -18,14 +18,30 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "in.pitchtopicture.ptp_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = "com.pitchtopicture.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    // ── Flavors ───────────────────────────────────────────────────────────────
+    // dev  → com.pitchtopicture.app.dev  → http://192.168.1.5:9002
+    // prod → com.pitchtopicture.app      → https://pitchtopicture.in
+    // Build/run with: flutter run --flavor dev  -t lib/main_dev.dart
+    //                 flutter run --flavor prod -t lib/main_prod.dart
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            manifestPlaceholders["appName"] = "PTP Dev"
+        }
+        create("prod") {
+            dimension = "environment"
+            manifestPlaceholders["appName"] = "Pitch To Picture"
+        }
     }
 
     buildTypes {
