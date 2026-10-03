@@ -1,86 +1,47 @@
-# Pitch To Picture — Flutter App (`ptp_app`)
+# Pitch To Picture — mobile app (Flutter)
 
-Mobile (iOS + Android) client for the **Pitch To Picture** film-pitch platform.
-Mirrors the features of the existing Next.js web app in `../P2P-website`.
+The pitchtopicture.in website as an app for iOS, Android and web: submit a script, build your team, pitch on the show.
 
-## Architecture
+## How it works
 
-| Concern | Choice |
-|---|---|
-| Auth | Firebase Auth (email/password + Google) — client SDK |
-| Data API | REST endpoints on the Next.js app (`/api/v1/*`), authed with the Firebase ID token |
-| State management | Riverpod |
-| Routing | go_router |
-| HTTP | Dio (auto-attaches `Authorization: Bearer <idToken>`) |
+- **Backend:** [P2P-backend](../P2P-backend) — `/api/auth` (the shared P2P account: email + password, Google via
+  Firebase) and `/api/ptp/v1` (profiles, projects, NDA + applications, messages, uploads, pitch guide, contact).
+  The `ptp` database is the website's existing schema.
+- **API URL:** release builds use `https://api.pitchtopicture.in`; debug builds use `http://localhost:4000`
+  (`10.0.2.2:4000` on the Android emulator). Override with `--dart-define=API_BASE_URL=…`.
+- **Live chat:** P2P-backend's WebSocket (`/ws`, `ptp:*` events); messages are kept in on-device SQLite, so chats
+  open offline and messages written offline send themselves when the connection is back.
+- **Push:** Firebase Cloud Messaging (project `studio-5552739494-fac85`), registered with the backend as app `ptp`.
+- **Uploads:** profile photos, project covers and script PDFs go straight to MinIO with presigned POSTs. Scripts are
+  private (only the creator and the Pitch To Picture team can open them).
 
-> The web app stores data in **MySQL via Prisma** and exposes it through Next.js
-> **Server Actions**, which Flutter cannot call. The plan is to add REST
-> endpoints (`/api/v1/*`) to the Next.js app that reuse the same Prisma logic.
+## Screens (mirrors the website)
 
-## Project layout
+| Area | Screens |
+|------|---------|
+| Account | Login, sign up (website password rules), verify email, forgot password, complete your profile, Google sign-in (mobile) |
+| Home | Hero, official sponsor, latest projects, how it works, creators, CTA |
+| Projects | Feed with search + genre filter, project detail (hiring by role, creator, share), NDA → apply, post a project (cover + script PDF), hiring editor, AI pitch guide (owner) |
+| Dashboard | My projects, incoming applications (shortlist / hire / reject / message), sent applications |
+| Inbox | Conversations with unread counts, new applications, live chat with read ticks |
+| Creators | Directory with search + role filter, public profile with contact details |
+| Profile | My profile, edit profile, settings (change password, delete account), terms, privacy, rules, contact (sends email), the show |
 
-```
-lib/
-  main.dart                     # bootstrap (Firebase init guarded)
-  firebase_options.dart         # PLACEHOLDER — run `flutterfire configure`
-  src/
-    app.dart                    # MaterialApp.router + theme
-    core/
-      config/   env.dart, app_status.dart
-      constants/ app_colors.dart, app_constants.dart   # roles, statuses, palette
-      theme/    app_theme.dart                          # cinematic black/gold
-      network/  api_client.dart (Dio + token), api_exception.dart
-      router/   app_router.dart
-    features/
-      auth/        data | domain | presentation
-      profile/     ...
-      projects/    ...
-      applications/...
-      messages/    ...
-      pitch_guide/ ...
-      admin/       ...
-    shared/  models | widgets
-```
+Guests can browse Home, Projects, Creators, profiles and the info pages; everything else asks them to sign in.
 
-## Setup (before running with real auth)
-
-1. Install the FlutterFire CLI and configure the Firebase project:
-   ```bash
-   dart pub global activate flutterfire_cli
-   cd ptp-app
-   flutterfire configure --project=<firebase-project-id>
-   ```
-   This regenerates `lib/firebase_options.dart` and adds the native config
-   files (`google-services.json`, `GoogleService-Info.plist`). Use the same
-   Firebase project as the web app (see `../P2P-website/.env`).
-2. Point the app at your API:
-   ```bash
-   flutter run --dart-define=API_BASE_URL=https://pitchtopicture.in
-   # Android emulator against a local Next.js dev server:
-   # --dart-define=API_BASE_URL=http://10.0.2.2:9002
-   ```
-
-Until step 1 is done the app boots in "Firebase not configured" preview mode so
-the theme/UI can still be developed.
-
-## Commands
+## Run
 
 ```bash
 flutter pub get
-flutter analyze
+flutter run                              # iOS simulator / Android emulator (backend on localhost:4000)
+flutter run -d chrome --web-port 5050    # web
 flutter test
-flutter run
 ```
 
-## Roadmap (next steps)
+## Release
 
-- [ ] Add `/api/v1/*` REST endpoints to the Next.js app (Firebase ID-token auth)
-- [ ] Models + JSON serialization (User, Project, Application, Message, NDA)
-- [ ] Auth flows: signup, onboarding, password reset
-- [ ] Projects: list, detail, submit, dashboard, status lifecycle
-- [ ] Team building: NDA → apply → manage applications
-- [ ] Inbox / messaging
-- [ ] AI Pitch Prep guide
-- [ ] Trailer submission + show lifecycle + payments
-- [ ] Admin panel
-```
+| | |
+|---|---|
+| Android | `com.pitchtopicture.app` — `flutter build apk --release` / `appbundle`; signing from `android/key.properties` (falls back to the debug key) |
+| iOS | `in.pitchtopicture.ptpApp` — `flutter build ipa --release` |
+| Version | `version:` in `pubspec.yaml` |

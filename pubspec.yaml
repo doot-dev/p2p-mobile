@@ -39,6 +39,7 @@ flutter:
   assets:
     - assets/branding/logo_mark.png
     - assets/branding/sponsor_gsjpl.png
+    - assets/branding/ads_banner.png
 
   # Website type: Cinzel (headlines) + Inter (body). Variable fonts; weights via FontVariation in theme.dart.
   fonts:

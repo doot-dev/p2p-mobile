@@ -279,7 +279,7 @@ class StatusBadge extends StatelessWidget {
 /// Application status badge (Applied / Shortlisted / Hired / Not selected).
 Widget applicationBadge(String? status) {
   final s = applicationStatuses[status];
-  return StatusBadge(s?.$1 ?? '${status ?? ''}', tone: s?.$2 ?? Tone.muted);
+  return StatusBadge(s?.$1 ?? status ?? '', tone: s?.$2 ?? Tone.muted);
 }
 
 /// Project lifecycle badge in the website's colours.

@@ -36,12 +36,14 @@ bool isBrowsable(String location) =>
     location.startsWith('/legal/');
 
 /// Where the user must be given their session. Null = stay. Pure, so it's unit-tested.
-///   loading/unreachable → splash · signed out → browsable pages + login/signup/forgot (else login)
+///   loading/unreachable → splash · signed out → Home first; browsable pages + login/signup/forgot (else login)
 ///   unverified email → verify · profile not completed → onboarding · otherwise anywhere (gates → home)
 String? redirectFor(Session session, String location) {
   if (location.startsWith('/legal/')) return null;
   final target = switch (session.status) {
     SessionStatus.loading || SessionStatus.unreachable => Routes.splash,
+    // Guests start on Home, like the website.
+    SessionStatus.signedOut when location == Routes.splash => Routes.home,
     SessionStatus.signedOut => _authPages.contains(location) || isBrowsable(location) ? location : Routes.login,
     SessionStatus.signedIn when !session.account!.emailVerified => Routes.verifyEmail,
     SessionStatus.signedIn when !session.onboarded => Routes.onboarding,

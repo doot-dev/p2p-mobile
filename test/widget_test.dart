@@ -28,6 +28,10 @@ void main() {
       expect(redirectFor(signedIn(), '/dashboard'), isNull);
     });
 
+    test('a guest opening the app lands on Home', () {
+      expect(redirectFor(const Session(SessionStatus.signedOut), '/'), '/home');
+    });
+
     test('loading shows the splash', () {
       expect(redirectFor(const Session(SessionStatus.loading), '/projects'), '/');
     });
