@@ -7,6 +7,7 @@ Session signedIn({bool verified = true, bool onboarded = true}) => Session(
       SessionStatus.signedIn,
       account: Account(id: 'a1', email: 'a@b.c', name: 'A', emailVerified: verified),
       profile: {'id': 'PTPC1234', 'onboardingCompleted': onboarded},
+      needsOnboarding: !onboarded,
     );
 
 void main() {
