@@ -562,7 +562,9 @@ class OnboardingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => _FormPage(
         showBack: false,
         title: 'Complete your profile',
-        subtitle: 'Creators see this when you apply, and it is how teams find you.',
+        subtitle: ref.watch(sessionProvider).missing.length < 4
+            ? "We've filled in what you already gave your P2P account. Check it and add the rest."
+            : 'Creators see this when you apply, and it is how teams find you.',
         children: [
           ProfileForm(submitLabel: 'Finish', onboarding: true, onSaved: () => context.go('/home')),
           const SizedBox(height: S.sm),

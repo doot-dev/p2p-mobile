@@ -33,7 +33,7 @@ class Account {
 enum SessionStatus { loading, unreachable, signedOut, signedIn }
 
 class Session {
-  const Session(this.status, {this.account, this.profile});
+  const Session(this.status, {this.account, this.profile, this.needsOnboarding = false, this.missing = const []});
 
   final SessionStatus status;
   final Account? account;
@@ -42,8 +42,13 @@ class Session {
   /// it on the first signed-in call, so a signed-in session always has one.
   final Json? profile;
 
+  /// From the server: onboarding not finished, or required details (phone, city, state, country) still missing,
+  /// e.g. someone who signed up through Universe with only the basics.
+  final bool needsOnboarding;
+  final List<String> missing;
+
   bool get signedIn => status == SessionStatus.signedIn;
-  bool get onboarded => profile?['onboardingCompleted'] == true;
+  bool get onboarded => !needsOnboarding;
 
   /// PTPC id, e.g. "PTPC4821".
   String? get ptpcId => profile?['id'] as String?;
@@ -77,7 +82,13 @@ class SessionController extends Notifier<Session> {
       final me = await _api.get('/api/auth/me') as Json;
       final ptpMe = await _api.get('$ptp/me') as Json;
       final account = Account.fromJson(me['account'] as Json);
-      state = Session(SessionStatus.signedIn, account: account, profile: ptpMe['profile'] as Json?);
+      state = Session(
+        SessionStatus.signedIn,
+        account: account,
+        profile: ptpMe['profile'] as Json?,
+        needsOnboarding: ptpMe['needsOnboarding'] == true,
+        missing: strList(ptpMe['missing']),
+      );
       unawaited(Push.register(_api));
       ref.read(realtimeProvider).start(account.id); // live chat + application updates
     } on ApiException catch (e) {
@@ -96,7 +107,9 @@ class SessionController extends Notifier<Session> {
   }
 
   /// Replace the cached profile after an edit (PATCH /me returns it).
-  void setProfile(Json profile) => state = Session(state.status, account: state.account, profile: profile);
+  /// After a successful save the server has accepted every required field (it refuses otherwise).
+  void setProfile(Json profile) =>
+      state = Session(state.status, account: state.account, profile: profile, needsOnboarding: profile['onboardingCompleted'] != true);
 
   Future<void> _startSession(String path, Map<String, String> body) async {
     final res = await _api.post(path, body) as Json;
