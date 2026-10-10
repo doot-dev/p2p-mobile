@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com</string>
+	<string>343691040198-fh72r8m3fcsukju3aonjuvhfcppgf2b8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj</string>
+	<string>com.googleusercontent.apps.343691040198-fh72r8m3fcsukju3aonjuvhfcppgf2b8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>343691040198-7c81jhn9ncsf35dhkj94tf3gctt644gc.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC1LozZpNWxhP1Be1CTpqhumHtIRKzBL6c</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>in.pitchtopicture.ptpApp</string>
+	<string>in.pitchtopicture.ptp</string>
 	<key>PROJECT_ID</key>
 	<string>studio-5552739494-fac85</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:343691040198:ios:71ac3da9912e5a1238cec7</string>
+	<string>1:343691040198:ios:52768a519fb7d8c638cec7</string>
 	<key>DATABASE_URL</key>
 	<string>https://studio-5552739494-fac85-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>

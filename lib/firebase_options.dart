@@ -59,12 +59,12 @@ class DefaultFirebaseOptions {
   );
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC1LozZpNWxhP1Be1CTpqhumHtIRKzBL6c',
-    appId: '1:343691040198:ios:71ac3da9912e5a1238cec7',
+    appId: '1:343691040198:ios:52768a519fb7d8c638cec7',
     messagingSenderId: '343691040198',
     projectId: 'studio-5552739494-fac85',
     databaseURL: 'https://studio-5552739494-fac85-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'studio-5552739494-fac85.firebasestorage.app',
     iosClientId: '343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com',
-    iosBundleId: 'in.pitchtopicture.ptpApp',
+    iosBundleId: 'in.pitchtopicture.ptp',
   );
 }
