@@ -1,4 +1,5 @@
 // Sign-in, sign-up, password reset, email verification and onboarding (mirrors P2P-website /auth/*).
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +16,43 @@ import 'session.dart';
 const _hero = 'https://images.unsplash.com/photo-1485846234645-a62644f84728?crop=entropy&cs=srgb&fm=jpg&w=1080&q=80';
 
 /// Busy flag + error toast around an async action. Returns true on success.
+/// "Continue with Google" (Android / iOS). New people go on to "Complete your profile".
+class GoogleSignInButton extends ConsumerStatefulWidget {
+  const GoogleSignInButton({super.key});
+
+  @override
+  ConsumerState<GoogleSignInButton> createState() => _GoogleSignInButtonState();
+}
+
+class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
+  bool _busy = false;
+
+  Future<void> _go() async {
+    setState(() => _busy = true);
+    try {
+      await ref.read(sessionProvider.notifier).signInWithGoogle();
+    } on ApiException catch (e) {
+      if (mounted) toast(context, e.message, tone: Tone.error);
+    } catch (e) {
+      debugPrint('google sign-in failed: $e');
+      if (mounted) toast(context, 'Google sign-in did not work. Please try again.', tone: Tone.error);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => kIsWeb
+      ? const SizedBox.shrink()
+      : AppButton(
+          'Continue with Google',
+          variant: BtnVariant.secondary,
+          loading: _busy,
+          icon: const Icon(Icons.g_mobiledata, size: 28, color: C.onSurface),
+          onPressed: _go,
+        );
+}
+
 mixin _Busy<W extends ConsumerStatefulWidget> on ConsumerState<W> {
   bool busy = false;
 
@@ -173,6 +211,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with _Busy {
                         child: TextButton(onPressed: () => context.push('/forgot-password'), child: Text('Forgot password?', style: T.label.gold)),
                       ),
                       AppButton('Log In', loading: busy, onPressed: _submit),
+                      const SizedBox(height: S.sm),
+                      const GoogleSignInButton(),
                       const SizedBox(height: S.md),
                       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                         Text('New to Pitch To Picture? ', style: T.body.muted),
@@ -266,6 +306,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> with _Busy {
             ),
           const SizedBox(height: S.lg),
           AppButton('Create Account', loading: busy, onPressed: _submit),
+          const SizedBox(height: S.sm),
+          const GoogleSignInButton(),
           const SizedBox(height: S.md),
           Text('By signing up you agree to our Terms and Privacy Policy.', style: T.caption.muted, textAlign: TextAlign.center),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [

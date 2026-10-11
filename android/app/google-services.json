@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "343691040198-7c81jhn9ncsf35dhkj94tf3gctt644gc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pitchtopicture.app",
+            "certificate_hash": "bfcce465430105c9613a7ec941339bd61d16efc5"
+          }
+        },
+        {
+          "client_id": "343691040198-ss9hpd362im2clqvqupo0s2ti7o8bka4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pitchtopicture.app",
+            "certificate_hash": "eebd426b526c7af5a2453d5f95e6339b2b1bbdf7"
+          }
+        },
+        {
           "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -32,10 +48,10 @@
               "client_type": 3
             },
             {
-              "client_id": "343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com",
+              "client_id": "343691040198-fh72r8m3fcsukju3aonjuvhfcppgf2b8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "in.pitchtopicture.ptpApp"
+                "bundle_id": "in.pitchtopicture.ptp"
               }
             }
           ]
@@ -44,12 +60,28 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:343691040198:android:e17ed05f3575523138cec7",
+        "mobilesdk_app_id": "1:343691040198:android:0bcb587fd0fe083438cec7",
         "android_client_info": {
-          "package_name": "com.pitchtopicture.app.dev"
+          "package_name": "in.pitchtopicture.portfolio"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "343691040198-0r06pfrcsfrnkpt1qsie6sup738utpk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.pitchtopicture.portfolio",
+            "certificate_hash": "207758a1b2f77462cf5199b9ee841c79c42a02b2"
+          }
+        },
+        {
+          "client_id": "343691040198-mb4ku2dq28htmo23o8u2113pialipach.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.pitchtopicture.portfolio",
+            "certificate_hash": "bfcce465430105c9613a7ec941339bd61d16efc5"
+          }
+        },
         {
           "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
           "client_type": 3
@@ -68,46 +100,10 @@
               "client_type": 3
             },
             {
-              "client_id": "343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com",
+              "client_id": "343691040198-fh72r8m3fcsukju3aonjuvhfcppgf2b8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "in.pitchtopicture.ptpApp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:343691040198:android:027eae2f13210c7a38cec7",
-        "android_client_info": {
-          "package_name": "in.pitchtopicture.ptp_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBfSBEhhcUpJpGiHeljhPSQ643KSc3ITNU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "343691040198-biur37juk5ramu7d4aussoksina31unp.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "in.pitchtopicture.ptpApp"
+                "bundle_id": "in.pitchtopicture.ptp"
               }
             }
           ]

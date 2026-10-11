@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     projectId: 'studio-5552739494-fac85',
     databaseURL: 'https://studio-5552739494-fac85-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'studio-5552739494-fac85.firebasestorage.app',
-    iosClientId: '343691040198-n6kosvoh324nuq0lpm0n7h7u4e0ru8gj.apps.googleusercontent.com',
+    iosClientId: '343691040198-fh72r8m3fcsukju3aonjuvhfcppgf2b8.apps.googleusercontent.com',
     iosBundleId: 'in.pitchtopicture.ptp',
   );
 }

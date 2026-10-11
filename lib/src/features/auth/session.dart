@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api.dart';
+import '../../core/google_auth.dart';
 import '../../core/data.dart';
 import '../../core/format.dart';
 import '../../core/local_db.dart';
@@ -120,6 +121,15 @@ class SessionController extends Notifier<Session> {
   Future<void> login(String email, String password) =>
       _startSession('/api/auth/login', {'email': email.trim().toLowerCase(), 'password': password});
 
+  /// Google sign-in (mobile). New people go on to "Complete your profile", pre-filled from their P2P account.
+  /// Returns false if they cancelled.
+  Future<bool> signInWithGoogle() async {
+    final idToken = await googleFirebaseIdToken();
+    if (idToken == null) return false;
+    await _startSession('/api/auth/firebase', {'idToken': idToken});
+    return true;
+  }
+
   Future<void> register({required String name, required String email, required String password}) =>
       _startSession('/api/auth/register', {'name': name.trim(), 'email': email.trim().toLowerCase(), 'password': password});
 
@@ -165,6 +175,7 @@ class SessionController extends Notifier<Session> {
 
   /// Close the socket and wipe this device's copy of chats and screens (someone else may sign in next).
   Future<void> _endLocalSession() async {
+    await googleSignOut().catchError((_) {});
     await ref.read(realtimeProvider).stop();
     await _tokens.clear();
     await ref.read(localDbProvider).clearAll().catchError((_) {});
