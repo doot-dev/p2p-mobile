@@ -1,0 +1,9 @@
+# App icon (Android + iOS) from the Pitch To Picture logo.  Run: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: assets/branding/icon.png
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  adaptive_icon_background: "#0A0A0A"
+  adaptive_icon_foreground: assets/branding/icon_foreground.png
+  min_sdk_android: 21

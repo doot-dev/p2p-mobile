@@ -1,0 +1,10 @@
+# Launch screen shown while the app starts.  Run: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#0A0A0A"
+  image: assets/branding/splash.png
+  android_12:
+    color: "#0A0A0A"
+    image: assets/branding/splash.png
+    icon_background_color: "#0A0A0A"
+  web: false
+  fullscreen: false
