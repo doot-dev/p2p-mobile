@@ -2,7 +2,7 @@ name: ptp_app
 description: "Pitch To Picture — submit your film script, build your team, pitch on the show."
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.12.1
